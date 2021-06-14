@@ -1,0 +1,119 @@
+version: "2.0"
+intents:
+  - demande_orientaion:
+      use_entities: []
+  - bavarder:
+      use_entities: []
+  - inform
+  - affirmer
+  - refuser
+  - stop
+  - aurevoir
+  - salutation
+  - bot_challenge
+  - demande_orientation
+
+entities:
+  - nom
+  - diplome
+
+  
+
+slots:
+  nom:
+    type: text
+    influence_conversation: false
+    auto_fill: false
+  diplome:
+    type: text
+    influence_conversation: false
+    auto_fill: false
+  requested_slot:
+    type: text
+    influence_conversation: false
+
+responses:
+  utter_ask_diplome:
+    - text: "la formation que vous souhaitz svp ?"
+  utter_ask_nom:
+    - text: "votre nom ?"
+  utter_submit:
+  - text: "tout est bon!"
+  utter_slots_values:
+    - text: "je vais rechercher pour les parametres suivants:\n
+             - nom: {nom}\n
+             - diplome: {diplome}"
+
+  utter_licence:
+    - text: "Polytech offre une formation de qualité en informatique pour un cycle licence"
+
+  utter_architecture:
+    - text: "en architecture , l'école Polytech vous pépare pour :\n
+              un Diplome National D'architecture et \n
+              un Master en Building Information Modeling"
+
+  utter_cycle_preparatoire:
+    - text: "Polytech à pour vous un cycle prépartoir"
+
+  utter_master_pro:
+    - text: "en master professionnel vous avez le choix entre: \n
+            - Master Canadien en dévéllopenment de jeu \n
+            - Master en ingégnierie logiciel \n
+            - Master management intégré"
+
+  utter_ingégnieur:
+    - text: "en cycle ingégnieur vous avez le choix entre: \n
+            - Génie indistruel  \n
+            - Mécatronique \n
+            - Informatique"
+  
+  utter_bavarder:
+    - text: "bavarder"
+  utter_ask_continuer:
+    - text: "voulez- vous continuer?"
+ 
+ # utter_default:
+  #  - text: "désolé mais je ne vous comprends pas pouvez vous reformuler votre phrase?"
+
+  utter_salutation:
+    - text: "Bonjour ! je suis Botpi, comment puis-je vous aidez?"
+
+  utter_iamabot:
+    - text: "je suis un chatbot fait par polytech"
+  utter_restart:
+    - text: "recommencer?"
+  utter_wrong_diplome:
+    - text: "nous n'avons cette formation désolé"
+
+actions:
+- validate_etudiant_form
+
+
+# le formulaire pour l'orientation des étudiants
+
+forms:
+  etudiant_form:
+    ignored_intents:
+    - bavarder
+    - affirmer
+    - refuser
+    - stop
+    - aurevoir
+    - salutation
+    - bot_challenge
+    - demande_orientation
+    
+    required_slots:
+      nom:
+      - type: from_entity
+        entity: nom
+        intent: [inform]
+      diplome:
+      - type: from_entity
+        entity: diplome
+        intent: [inform]
+     
+
+session_config:
+  session_expiration_time: 60  
+  carry_over_slots_to_new_session: true

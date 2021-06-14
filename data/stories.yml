@@ -1,0 +1,13 @@
+version: "2.0"
+stories:
+  - story: arreter et continuer le formulaire
+    steps:
+      - intent: demande_orientation
+      - action: etudiant_form
+      - active_loop: etudiant_form
+      - active_loop: null
+      - action: utter_submit
+      #- action: utter_slots_values
+
+  
+
