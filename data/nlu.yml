@@ -2,56 +2,59 @@ version: "2.0"
 nlu:
 - intent: salutation
   examples: |
-    - salut 
+    - salut
     - bonjour
-    - bonsoir
-    - bonjour à vous
-    - bonjour monsieur
-
-- intent: demande_orientation
-  examples: |
-    - je veux une orientation
-    - je veux des suggestion
-    
-- intent: affirmer
-  examples: |
-    - oui je veux une orientation
-    - correcte
-    - oui
-    - certainement
-- intent: refuser
-  examples: |
-    - non
-    - non merci!
-- intent: inform
-  examples: |
-    - je voudrais faire [informatique](diplome)
-    - je cherche à faire  un [master professionels](diplome)
-    - je veux une [licence](diplome)
-    - mon nom est [friday](nom)
-    - je m'appelle [itsoukiga](nom)
-    - je m'appelle [friday](nom)
-    - je suis détenteur d'un [master](diplome)
-    - je veux une [licence](diplome)
-    - je cherche à faire un [master](diplome)
-    - je veux une preparatoire
+    - coucou
 - intent: aurevoir
   examples: |
-    - merci à plus
     - aurevoir
-    - je vous remercie
-- intent: bavardage
+    - à plus
+    - bye
+- intent: affirmation
   examples: |
-    - c'est quoi polytech?
-    - avez vous des dormoires?
-- intent: arreter
+    - oui
+    - je suis d'accord
+- intent: refutation
   examples: |
-    - merci mais vous ne m'aidez pas
-    - laissez tomber merci
-    - vous ne ppouvez rien pour moi
-    - je ne veux plus continuer
-    - stop s'il vous plait
+    - non
+    - je ne veux pas
 - intent: bot_challenge
   examples: |
-    - ètes-vous un robo?
-    - ètes vous un humain?
+    - à qui je parles?
+    - ètes vous un homme?
+    
+- intent: type_diplome
+  examples: |
+    - [mathématique](specialite)
+    - [informatique](specialite)
+- intent: information_diplome
+  examples: |
+    - [master](diplome)
+    - [licence](diplome)
+- intent: orientation
+  examples: |
+    - je veux une orientation
+    - j'ailerais avoir une orientation
+    - pouvez vous me conseiller une formation?
+- intent: admission
+  examples: |
+    - comment se faire admettre?
+    - admission
+    - je veux intéger votre école
+- intent: admissioninternational
+  examples: |
+    - je suis un étudiant international
+    - étranger
+- intent: inscription
+  examples: |
+    - comment s'inscrire
+    - je voudrais m'inscrire
+    
+- intent: identiteElectronique
+  examples: |
+    - comment avoir son identité electronique
+- intent: formations
+  examples: |
+    - que offrez-vous comme formations?
+    - formations
+    - quel sont vos formations?

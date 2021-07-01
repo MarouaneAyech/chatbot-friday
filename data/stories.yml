@@ -1,13 +1,88 @@
 version: "2.0"
-stories:
-  - story: arreter et continuer le formulaire
-    steps:
-      - intent: demande_orientation
-      - action: etudiant_form
-      - active_loop: etudiant_form
-      - active_loop: null
-      - action: utter_submit
-      #- action: utter_slots_values
 
+stories:
+
+- story: orientation_autre
+  steps:
+  - intent: salutation
+  - action: utter_salutation
+  - intent: orientation
+  - action: utter_ask_dernier_diplome
+  - intent: refutation
+  - action: utter_ask_diplome_autre
+  - intent: information_diplome
+    entities:
+    - diplome:
+  - slot_was_set:
+    - diplome: licence
+  - action: action_prendre_diplome_autre
+  - slot_was_set:
+    - diplome: informatique
+  - action: utter_ask_specialite
+  - intent: type_diplome
+    entities:
+    - specialite:
+  - slot_was_set:
+    - specialite: informatique
+  - action: action_prendre_specialite
+  - slot_was_set:
+    - specialite: informatique
+  - action: action_donner_orientation_autre
+
+
+
+- story: inscription path 
+  steps: 
+  - intent: inscription
+  - action: utter_inscription
+
+- story: admission path
+  steps:
+  - intent: admission 
+  - action: utter_admission
+
+- story: admissioninternational path
+  steps:
+  - intent: admissioninternational
+  - action: utter_admissioninternational
   
 
+- story: inscription path 
+  steps:
+  - intent: inscription 
+  - action: utter_inscription
+  
+
+- story: identiteElectro path 
+  steps:
+  - intent: identiteElectro 
+  - action: utter_identiteElectro
+
+- story: formations path
+  steps:
+  - intent: formations 
+  - action: utter_formations
+
+
+
+
+
+
+
+- story: interactive_story_1
+  steps:
+  - intent: salutation
+  - action: utter_salutation
+  - intent: orientation
+  - action: utter_ask_dernier_diplome
+  - intent: affirmation
+  - action: utter_type_bac
+  - intent: type_diplome
+    entities:
+    - specialite: informatique
+  - slot_was_set:
+    - specialite: informatique
+  - action: action_prendre_diplome
+  - slot_was_set:
+    - specialite: informatique
+  - action: action_donner_orientation_bac

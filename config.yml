@@ -1,4 +1,4 @@
-language: fr
+language: en
 
 pipeline:
   - name: WhitespaceTokenizer
@@ -6,8 +6,7 @@ pipeline:
   - name: CountVectorsFeaturizer
     token_pattern: (?u)\b\w+\b
   #- name: DucklingEntityExtractor
-   #
-    url: http://localhost:8000
+   # url: http://localhost:8000
     dimensions:
       - number
   - name: DIETClassifier

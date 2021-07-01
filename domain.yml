@@ -1,119 +1,139 @@
-version: "2.0"
+version: '2.0'
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
 intents:
-  - demande_orientaion:
-      use_entities: []
-  - bavarder:
-      use_entities: []
-  - inform
-  - affirmer
-  - refuser
-  - stop
-  - aurevoir
-  - salutation
-  - bot_challenge
-  - demande_orientation
-
+- orientation
+- affirmation
+- salutation:
+    use_entities: []
+- type_diplome
+- refutation
+- information_diplome
+- aurevoir
+- bot_challenge:
+    ignore_entities:
+        - diplome
+        - specialite
+- admission:
+    ignore_entities:
+        - diplome
+        - specialite
+- admissioninternational:
+    ignore_entities:
+        - diplome
+        - specialite
+- inscription:
+    ignore_entities:
+        - diplome
+        - specialite
+- identiteElectro:
+    ignore_entities:
+        - diplome
+        - specialite
+- formations:
+    ignore_entities:
+        - diplome
+        - specialite
 entities:
-  - nom
-  - diplome
-
-  
-
+- diplome
+- specialite
 slots:
-  nom:
-    type: text
-    influence_conversation: false
-    auto_fill: false
   diplome:
     type: text
-    influence_conversation: false
-    auto_fill: false
-  requested_slot:
+    influence_conversation: true
+  specialite:
     type: text
-    influence_conversation: false
-
+    influence_conversation: true
 responses:
-  utter_ask_diplome:
-    - text: "la formation que vous souhaitz svp ?"
-  utter_ask_nom:
-    - text: "votre nom ?"
-  utter_submit:
-  - text: "tout est bon!"
-  utter_slots_values:
-    - text: "je vais rechercher pour les parametres suivants:\n
-             - nom: {nom}\n
-             - diplome: {diplome}"
-
-  utter_licence:
-    - text: "Polytech offre une formation de qualité en informatique pour un cycle licence"
-
-  utter_architecture:
-    - text: "en architecture , l'école Polytech vous pépare pour :\n
-              un Diplome National D'architecture et \n
-              un Master en Building Information Modeling"
-
-  utter_cycle_preparatoire:
-    - text: "Polytech à pour vous un cycle prépartoir"
-
-  utter_master_pro:
-    - text: "en master professionnel vous avez le choix entre: \n
-            - Master Canadien en dévéllopenment de jeu \n
-            - Master en ingégnierie logiciel \n
-            - Master management intégré"
-
-  utter_ingégnieur:
-    - text: "en cycle ingégnieur vous avez le choix entre: \n
-            - Génie indistruel  \n
-            - Mécatronique \n
-            - Informatique"
-  
-  utter_bavarder:
-    - text: "bavarder"
-  utter_ask_continuer:
-    - text: "voulez- vous continuer?"
- 
- # utter_default:
-  #  - text: "désolé mais je ne vous comprends pas pouvez vous reformuler votre phrase?"
-
+  utter_type_bac:
+  - text: quel est votre type de bac?
   utter_salutation:
-    - text: "Bonjour ! je suis Botpi, comment puis-je vous aidez?"
-
+  - text: |-
+      Bonjour! je suis Polybot votre assistant scolaire
+       je peux vous aidez avec toutes vos questions relatif à l'école
+       et aussi vous suggerer une orientation dans une filière.
+       alors que puis-je faire pour vous?
+  utter_ask_dernier_diplome:
+  - text: votre dernier diplome est-il un baccalauréat?
+  utter_ask_diplome_autre:
+  - text: de quel diplome sagit il?
+  utter_ask_specialite:
+  - text: dans quel specialite?
+  utter_aurevoir:
+  - text: Aurevoir et merci!
   utter_iamabot:
-    - text: "je suis un chatbot fait par polytech"
-  utter_restart:
-    - text: "recommencer?"
-  utter_wrong_diplome:
-    - text: "nous n'avons cette formation désolé"
-
+  - text: Je suis un bot produit par Polytech
+  utter_wrong_informatique:
+  - text: |-
+      Avec un baccalauréat informatique à polytech vous avez deux options:
+       Soit vous faites un prépartoire pour vous préparer à un cycle d'ingegnieur par la suite
+       tout en ayant acquis une bonne base de connaissance.
+       Soit vous faites un cycle licence informatique appliquée.
+       Nous vou recommandons de vous orientez en fonction de votre age et de vos préférences.
+  utter_wrong_science:
+  - text: |-
+      Pour un baccalauréat math-physique ou science à polytech vous pouvez faire:
+       un Cycle préparatoire aux études d'ingénieur: Math-Physique (MP), (préparation aux concours) ou;
+       un Cycle Préparatoire Intégré Mécanique, Matériaux et Microtechniques (3M).
+  utter_wrong_licence_info:
+  - text: |-
+      Vu que vous ètes déjas détenteur d'une licence en informatique vous pouvez poursuivre
+       à polytech dans un cycle ingégnieur en:
+       - Informatique, Reseaux et Multimédia
+       - Big Data et Business Inteligence
+       - Système d'information et du logiciel
+       - Ingégnieurie systèmes embarqués et mobiles
+       ou dans un cycle Master professionnel en :
+       - Master Canadien en dévéloppement de jeux video
+       - Master en ingégnieurie logiciel
+       - Master Data Science.
+  utter_wrong_master_info:
+  - text: |
+      Vu que vous ètes déjas détenteur d'un Master en informatique vous pouvez poursuivre
+       à polytech dans un cycle ingégnieur en:
+       - Informatique, Reseaux et Multimédia
+       - Big Data et Business Inteligence
+       - Système d'information et du logiciel
+  utter_admission:
+  - text: |-
+      Après le choix au préalable d'un programme d'étude, vous devez remplire le formulaire d'admission
+      en ligne sur le site officiel de l'école pi.tn en vous assurant que votre profil corresponde 
+      aux critères de chaque formation.
+  utter_admissioninternational:
+  - text: |-
+      Après le choix au préalable d'un programme d'étude, vous devez remplire le formulaire d'admission
+      en ligne sur le site officiel de l'école pi.tn en vous assurant que votre profil corresponde 
+      aux critères de chaque formation.
+      vous recevrez un message contenant tous les dossiers que vous devriez fournir par email à l'addresse: contact@pi.tn
+  utter_inscription:
+  - text: |-
+      Si votre demande d'admission est acceptée, vous devez reserver votre place par un depot de confirmation
+      (une avance sur les droits de scolarité du premier semestre) et remplire les formalités d'inscription
+      requise au près du service scolarité de l'école.
+  utter_identiteElectro:
+  - text: |-
+      Si votre demande d'inscription a bien été valider, il vous sera remit un CIP(code d'identification personnel) et 
+      une addresse electronique qui vous permettra d'avoir accès aux services de polytech.
+  utter_formations:
+  - text: |-
+      Polytech vous offres une multitude de formation à savoir:
+      -Architecture
+      -Cycle préparatoire
+      -Cycle ingenieur
+      -Licence
+      -Master professionel
+      -Formation pour professionel
+      -Accademie de dévéllopement de compétences
+      -Summer school
 actions:
-- validate_etudiant_form
-
-
-# le formulaire pour l'orientation des étudiants
-
-forms:
-  etudiant_form:
-    ignored_intents:
-    - bavarder
-    - affirmer
-    - refuser
-    - stop
-    - aurevoir
-    - salutation
-    - bot_challenge
-    - demande_orientation
-    
-    required_slots:
-      nom:
-      - type: from_entity
-        entity: nom
-        intent: [inform]
-      diplome:
-      - type: from_entity
-        entity: diplome
-        intent: [inform]
-     
-
-session_config:
-  session_expiration_time: 60  
-  carry_over_slots_to_new_session: true
+- action_donner_orientation_autre
+- action_donner_orientation_bac
+- action_prendre_diplome
+- action_prendre_diplome_autre
+- action_prendre_specialite
+- utter_ask_dernier_diplome
+- utter_ask_diplome_autre
+- utter_ask_specialite
+- utter_salutation
+- utter_type_bac

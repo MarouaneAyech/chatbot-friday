@@ -1,74 +1,97 @@
-from typing import Dict, Text, Any, List, Union
+from typing import Any, Text, Dict, List
 
-from rasa_sdk import Tracker
+from rasa_sdk.events import SlotSet
+from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
-from rasa_sdk.forms import FormValidationAction
 
 
-class ValidateetudiantForm(FormValidationAction):
-   
+class ActionPrendreDiplome(Action):
 
     def name(self) -> Text:
-        return "validate_etudiant_form"
-
-    @staticmethod
-    def formation_db() -> List[Text]:
-        """base des cycles de formations à polytech."""
-
-        return 
-        [
-            "licence",
-            "cycle preparatoire",
-            "architecture",
-            "cycle ingégnieure",
-            "master professionels",
-            "formations pour les professionels",
-            "academy de dévéloppement de compétences",
-        ]
-
-    @staticmethod
-    def is_int(string: Text) -> bool:
-        
-
-        try:
-            int(string)
-            return True
-        except ValueError:
-            return False
-
-   
-
-    def validate_diplome(
-        self,
-        value: Text,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any],
-    ) -> Dict[Text, Any]:
-        
-
-        if value.lower() in self.formation_db():
-
-            if value.lower()=="licence":
-                dispatcher.utter_message(response="utter_licence")
-
-            elif value.lower()=="cycle preparatoire":
-                dispatcher.utter_message(response="utter_cycle_preparatoire")
-
-            elif value.lower()=="master professionnels":
-                dispatcher.utter_message(response="utter_master_pro")
-
-            elif value.lower()=="cycle ingégnieure":
-                dispatcher.utter_message(response="utter_ingégnieur")
-            
-            return {"diplome": value}
-
-        
-        else:
-            dispatcher.utter_message(response="utter_wrong_diplome")
-           
-            return {"diplome": None}
-
-   
+        return "action_prendre_diplome"
     
-  
+    def  run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        text =tracker.latest_message['text']
+        
+      
+        return [SlotSet("specialite", text)]
+
+
+class ActionDonnerOrientationBac(Action):
+
+    def name(self) -> Text:
+        return "action_donner_orientation_bac"
+    
+    def  run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        bac = tracker.get_slot("specialite")
+        if not bac:
+            dispatcher.utter_message(text="ce genre de bac n'est pas pris à polytech")
+        elif bac=="informatique":
+            dispatcher.utter_message(response='utter_wrong_informatique')
+        elif bac=="mathématique":
+            dispatcher.utter_message(response='utter_wrong_science')
+        return []
+
+
+
+class ActionPrendreDiplomeAutre(Action):
+    
+    def name(self) -> Text:
+        return "action_prendre_diplome_autre"
+    
+    def  run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        text = tracker.latest_message['text']
+      
+        return [SlotSet("diplome", text)]
+
+class ActionPrendreSpecialiteAutre(Action):
+    
+    def name(self) -> Text:
+        return "action_prendre_specialite"
+    @staticmethod
+    def required_slots(tracker: Tracker) -> List[Text]:
+        """A list of required slots that the form has to fill"""
+        return ["specialite"]
+    
+    def  run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        text = tracker.latest_message['text']
+        
+      
+        return [SlotSet("specialite", text)]
+
+
+class ActionDonnerOrientationAutre(Action):
+
+    def name(self) -> Text:
+        return "action_donner_orientation_autre"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        diplome = tracker.get_slot("diplome")
+        specialite=tracker.get_slot('specialite')
+        if not diplome and not specialite:
+            dispatcher.utter_message(text="ce genre de bac n'est pas pris à polytech")
+        elif diplome=="licence" and specialite=='informatique':
+            dispatcher.utter_message(response='utter_wrong_licence_info')
+        elif diplome=="master" and specialite=='informatique':
+            dispatcher.utter_message(response='utter_wrong_master_info')
+        
+        return []
+
+
+
+

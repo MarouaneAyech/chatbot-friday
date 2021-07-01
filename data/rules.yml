@@ -1,33 +1,18 @@
 version: "2.0"
+
 rules:
-  - rule: salutation 
-    steps:
-      - intent: salutation
-      - action: utter_salutation
 
+- rule: Saluer l'utilisateur
+  steps:
+  - intent: salutation
+  - action: utter_salutation
 
+- rule: Dire aurevoir à l'utilisateur
+  steps:
+  - intent: aurevoir
+  - action: utter_aurevoir
 
-  - rule: Bot challenge
-    steps:
-      - intent: bot_challenge
-      - action: utter_iamabot
-
-  - rule: bavarder
-    steps:
-      - intent: bavarder
-      - action: utter_bavarder
-
-  - rule: activer le formulaire etudiant 
-    steps:
-      - intent: demande_orientation
-      - action: etudiant_form
-      - active_loop: etudiant_form
-
-  - rule: submit form
-    condition:
-    - active_loop: etudiant_form
-    steps:
-      - action: etudiant_form
-      - active_loop: null
-      - action: utter_submit
-      #- action: utter_slots_values
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
