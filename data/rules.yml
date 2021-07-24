@@ -2,10 +2,7 @@ version: "2.0"
 
 rules:
 
-- rule: Saluer l'utilisateur
-  steps:
-  - intent: salutation
-  - action: utter_salutation
+
 
 - rule: Dire aurevoir à l'utilisateur
   steps:
@@ -16,3 +13,19 @@ rules:
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
+
+- rule: activate orientation form
+  steps:
+    - intent: orientation
+    - action: orientation_form
+    - active_loop: orientation_form
+
+- rule: submit form
+  condition:
+  - active_loop: orientation_form
+  steps:
+    - action: orientation_form
+    - active_loop: null
+    - action: action_csv
+    - action: utter_submit
+    - action: utter_slots_values

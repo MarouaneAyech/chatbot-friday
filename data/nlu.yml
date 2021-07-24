@@ -10,51 +10,32 @@ nlu:
     - aurevoir
     - à plus
     - bye
-- intent: affirmation
-  examples: |
-    - oui
-    - je suis d'accord
-- intent: refutation
-  examples: |
-    - non
-    - je ne veux pas
-- intent: bot_challenge
-  examples: |
-    - à qui je parles?
-    - ètes vous un homme?
-    
-- intent: type_diplome
-  examples: |
-    - [mathématique](specialite)
-    - [informatique](specialite)
-- intent: information_diplome
-  examples: |
-    - [master](diplome)
-    - [licence](diplome)
 - intent: orientation
   examples: |
     - je veux une orientation
-    - j'ailerais avoir une orientation
-    - pouvez vous me conseiller une formation?
-- intent: admission
+
+- intent: informations_ecole
   examples: |
-    - comment se faire admettre?
-    - admission
-    - je veux intéger votre école
-- intent: admissioninternational
+    - je veux des informations sur l'école
+- intent: informations_diplome
   examples: |
-    - je suis un étudiant international
-    - étranger
-- intent: inscription
+    - [bac](diplome)
+    - [licence](diplome)
+    - [master](diplome)
+- intent: informations_specialite
   examples: |
-    - comment s'inscrire
-    - je voudrais m'inscrire
-    
-- intent: identiteElectronique
+    - [informatique](specialite)
+    - [mathématique](specialite)
+- intent: informations_mention
   examples: |
-    - comment avoir son identité electronique
-- intent: formations
+    - [bien](mention)
+    - [passable](mention)
+    - [assez-bien](mention)
+- intent: informations_interet
   examples: |
-    - que offrez-vous comme formations?
-    - formations
-    - quel sont vos formations?
+    - [probleme](centre_interet)
+    - [bricolage](centre_interet)
+    - [informatique](centre_interet)
+- intent: csv
+  examples: |
+    - montrer donnees

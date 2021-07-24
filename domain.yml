@@ -3,137 +3,212 @@ session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
-- orientation
-- affirmation
-- salutation:
-    use_entities: []
-- type_diplome
-- refutation
-- information_diplome
+
+- informations_diplome:
+    use_entities:
+    - diplome
+- informations_interet:
+    use_entities:
+    - centret_interet
+
+- salutation
+- informations_specialite:
+    use_entities:
+    - specialite
+
+
+- informations_mention:
+    use_entities:
+    - mention
+
+- salutations
 - aurevoir
-- bot_challenge:
-    ignore_entities:
-        - diplome
-        - specialite
-- admission:
-    ignore_entities:
-        - diplome
-        - specialite
-- admissioninternational:
-    ignore_entities:
-        - diplome
-        - specialite
-- inscription:
-    ignore_entities:
-        - diplome
-        - specialite
-- identiteElectro:
-    ignore_entities:
-        - diplome
-        - specialite
-- formations:
-    ignore_entities:
-        - diplome
-        - specialite
+- informations_ecole
+- orientation
 entities:
+- centre_interet
 - diplome
+- mention
 - specialite
 slots:
-  diplome:
+  nom:
     type: text
-    influence_conversation: true
+    auto_fill: false
+    influence_conversation: false
+  prenom:
+    type: text
+    auto_fill: false
+    influence_conversation: false
+  telephone:
+    type: text
+    auto_fill: false
+    influence_conversation: false
+  email:
+    type: text
+    auto_fill: false
+    influence_conversation: false
+  date_naissance:
+    type: text
+    auto_fill: false
+    influence_conversation: false
+  dernier_diplome:
+    type: text
+    auto_fill: false
+    influence_conversation: false
   specialite:
     type: text
-    influence_conversation: true
+    auto_fill: false
+    influence_conversation: false
+  obtention:
+    type: text
+    auto_fill: false
+    influence_conversation: false
+  mention:
+    type: text
+    auto_fill: false
+    influence_conversation: false
+  centre_interet:
+    type: text
+    auto_fill: false
+    influence_conversation: false
 responses:
-  utter_type_bac:
-  - text: quel est votre type de bac?
-  utter_salutation:
-  - text: |-
-      Bonjour! je suis Polybot votre assistant scolaire
-       je peux vous aidez avec toutes vos questions relatif à l'école
-       et aussi vous suggerer une orientation dans une filière.
-       alors que puis-je faire pour vous?
-  utter_ask_dernier_diplome:
-  - text: votre dernier diplome est-il un baccalauréat?
-  utter_ask_diplome_autre:
-  - text: de quel diplome sagit il?
-  utter_ask_specialite:
-  - text: dans quel specialite?
   utter_aurevoir:
-  - text: Aurevoir et merci!
+  - text: bye
   utter_iamabot:
-  - text: Je suis un bot produit par Polytech
-  utter_wrong_informatique:
+  - text: robot
+
+  utter_salutation:
+  - text: "Bonjour! je suis Polybot votre assistant scolaire \n
+            voulez-vous:"
+    buttons:
+    - title: Une orientation
+      payload: /orientation
+    - title: des informations sur l'école
+      payload: /informations_ecole
+
+  utter_ask_nom:
+  - text: quel est votre nom?
+  utter_ask_prenom:
+  - text: quel est votre prénom?
+  utter_ask_telephone:
+  - text: quel est votre numéro de téléphone?
+  utter_ask_email:
+  - text: quel est votre email?
+  utter_ask_date_naissance:
+  - text: quel est votre date de naissance (JJ/MM/AAAA)?
+  utter_ask_dernier_diplome:
+  - text: quel est votre dernier diplome?
+    buttons:
+    - title: Bac
+      payload: /informations_diplome{{"diplome":"bac"}}
+    - title: licence
+      payload: /informations_diplome{{"diplome":"licence"}}
+    - title: master
+      payload: /informations_diplome{{"diplome":"master"}}
+  utter_ask_specialite:
+  - text: quel est la spécialité de votre diplome?
+    buttons:
+    - title: informatique
+      payload: /informations_specialite{{"specialite":"informatique"}}
+    - title: math
+      payload: /informations_specialite{{"specialite":"math"}}
+    - title: physique
+      payload: /informations_specialite{{"specialite":"physique"}}
+    - title: logistique
+      payload: /informations_specialite{{"specialite":"logistique"}}
+    - title: Automatique
+      payload: /informations_specialite{{"specialite":"Automatique"}}
+    - title: Électromécanique
+      payload: /informations_specialite{{"specialite":"Électromécanique"}}
+    - title: Mécatronique
+      payload: /informations_specialite{{"specialite":"Mécatronique"}}
+    - title: Mécanique
+      payload: /informations_specialite{{"specialite":"Mécanique"}}
+    - title: technicien supérieur
+      payload: /informations_specialite{{"specialite":"tech-sup"}}
+    - title: Réseaux
+      payload: /informations_specialite{{"specialite":"réseaux"}}
+    - title: Multimédia
+      payload: /informations_specialite{{"specialite":"Multimédia"}}
+    
+  utter_ask_obtention:
   - text: |-
-      Avec un baccalauréat informatique à polytech vous avez deux options:
-       Soit vous faites un prépartoire pour vous préparer à un cycle d'ingegnieur par la suite
-       tout en ayant acquis une bonne base de connaissance.
-       Soit vous faites un cycle licence informatique appliquée.
-       Nous vou recommandons de vous orientez en fonction de votre age et de vos préférences.
-  utter_wrong_science:
+          en qu'elle année avez-vous obtenu votre diplome? (exemple: 2020) 
+  utter_ask_mention:
+  - text: quel mention avez-vous obtenu?
+    buttons:
+    - title: bien
+      payload: /informations_mention{{"mention":"bien"}}
+    - title: passable
+      payload: /informations_mention{{"mention":"passable"}}
+    - title: assez-bien
+      payload: /informations_mention{{"mention":"assez-bien"}}
+  utter_ask_centre_interet:
+  - text: quel est votre centre d'intéret?
+    buttons:
+    - title: informatique
+      payload: /informations_interet{{"centre_interet":"informatique"}}
+    - title: bricoleur
+      payload: /informations_interet{{"centre_interet":"bricolage"}}
+    - title: resolution de problèmes
+      payload: /informations_interet{{"centre_interet":"probleme"}}
+    - title: Jeux vidéos
+      payload: /informations_interet{{"centre_interet":"jex-vidéos"}}
+  utter_submit:
+  - text: ok!
+  utter_slots_values:
   - text: |-
-      Pour un baccalauréat math-physique ou science à polytech vous pouvez faire:
-       un Cycle préparatoire aux études d'ingénieur: Math-Physique (MP), (préparation aux concours) ou;
-       un Cycle Préparatoire Intégré Mécanique, Matériaux et Microtechniques (3M).
-  utter_wrong_licence_info:
-  - text: |-
-      Vu que vous ètes déjas détenteur d'une licence en informatique vous pouvez poursuivre
-       à polytech dans un cycle ingégnieur en:
-       - Informatique, Reseaux et Multimédia
-       - Big Data et Business Inteligence
-       - Système d'information et du logiciel
-       - Ingégnieurie systèmes embarqués et mobiles
-       ou dans un cycle Master professionnel en :
-       - Master Canadien en dévéloppement de jeux video
-       - Master en ingégnieurie logiciel
-       - Master Data Science.
-  utter_wrong_master_info:
-  - text: |
-      Vu que vous ètes déjas détenteur d'un Master en informatique vous pouvez poursuivre
-       à polytech dans un cycle ingégnieur en:
-       - Informatique, Reseaux et Multimédia
-       - Big Data et Business Inteligence
-       - Système d'information et du logiciel
-  utter_admission:
-  - text: |-
-      Après le choix au préalable d'un programme d'étude, vous devez remplire le formulaire d'admission
-      en ligne sur le site officiel de l'école pi.tn en vous assurant que votre profil corresponde 
-      aux critères de chaque formation.
-  utter_admissioninternational:
-  - text: |-
-      Après le choix au préalable d'un programme d'étude, vous devez remplire le formulaire d'admission
-      en ligne sur le site officiel de l'école pi.tn en vous assurant que votre profil corresponde 
-      aux critères de chaque formation.
-      vous recevrez un message contenant tous les dossiers que vous devriez fournir par email à l'addresse: contact@pi.tn
-  utter_inscription:
-  - text: |-
-      Si votre demande d'admission est acceptée, vous devez reserver votre place par un depot de confirmation
-      (une avance sur les droits de scolarité du premier semestre) et remplire les formalités d'inscription
-      requise au près du service scolarité de l'école.
-  utter_identiteElectro:
-  - text: |-
-      Si votre demande d'inscription a bien été valider, il vous sera remit un CIP(code d'identification personnel) et 
-      une addresse electronique qui vous permettra d'avoir accès aux services de polytech.
-  utter_formations:
-  - text: |-
-      Polytech vous offres une multitude de formation à savoir:
-      -Architecture
-      -Cycle préparatoire
-      -Cycle ingenieur
-      -Licence
-      -Master professionel
-      -Formation pour professionel
-      -Accademie de dévéllopement de compétences
-      -Summer school
+      vous avez entrer:
+       nom: {nom}
+       prenom: {prenom}
+       email: {email}
+       telephone: {telephone}
+       naissance: {date_naissance}
+       diplome: {dernier_diplome}
+       année diplome: {obtention}
+       specialité: {specialite}
+       interet: {centre_interet}
+       mention: {mention}
 actions:
-- action_donner_orientation_autre
-- action_donner_orientation_bac
-- action_prendre_diplome
-- action_prendre_diplome_autre
-- action_prendre_specialite
-- utter_ask_dernier_diplome
-- utter_ask_diplome_autre
-- utter_ask_specialite
+- action_csv
 - utter_salutation
-- utter_type_bac
+- utter_slots_values
+- utter_submit
+- validate_orientation_form
+forms:
+  orientation_form:
+    ignored_intents: null
+    required_slots:
+      nom:
+      - type: from_text
+       
+      prenom:
+      - type: from_text
+      telephone:
+      - type: from_text
+      email:
+      - type: from_text
+      date_naissance:
+      - type: from_text
+      dernier_diplome:
+      - type: from_entity
+        entity: diplome
+        intent:
+        - informations_diplome
+      specialite:
+      - type: from_entity
+        entity: specialite
+        intent:
+        - informations_specialite
+      obtention:
+      - type: from_text
+      mention:
+      - type: from_entity
+        entity: mention
+        intent:
+        - informations_mention
+      centre_interet:
+      - type: from_entity
+        entity: centre_interet
+        intent:
+        - informations_interet
